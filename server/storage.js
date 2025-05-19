@@ -1,5 +1,5 @@
 // Import schemas from shared schema
-import { users, skillPosts } from "../shared/schema";
+import { users, skillPosts } from "../shared/schema.js";
 
 // Storage interface for database operations
 export class MemStorage {
