@@ -1,3 +1,4 @@
+
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -16,10 +17,7 @@ import Admin from "./pages/admin";
 import { useAuth } from "./contexts/auth-context";
 
 function Router() {
-  // Get auth context with a check to prevent errors
-  const auth = useAuth();
-  const user = auth?.user;
-  const loading = auth?.loading || false;
+  const { user, loading } = useAuth();
   
   if (loading) {
     return (
