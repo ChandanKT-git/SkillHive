@@ -92,8 +92,10 @@ const profileFormSchema = z.object({
 const Profile = () => {
   const [, params] = useRoute('/profile/:id?');
   const [, navigate] = useLocation();
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const auth = useAuth() || {};
+  const user = auth.user;
+  const toastHook = useToast() || {};
+  const toast = toastHook.toast || (() => {});
   const [profileUser, setProfileUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userSkills, setUserSkills] = useState([]);
