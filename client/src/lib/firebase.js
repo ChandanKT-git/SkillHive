@@ -6,7 +6,11 @@ import {
   signOut as firebaseSignOut,
   updateProfile,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
-  onAuthStateChanged as firebaseOnAuthStateChanged
+  onAuthStateChanged as firebaseOnAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult
 } from "firebase/auth";
 import { 
   getFirestore, 
@@ -89,6 +93,55 @@ export const signIn = async (email, password, rememberMe = false) => {
     return userCredential.user;
   } catch (error) {
     throw new Error(error.message);
+  }
+};
+
+export const signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    // Add scopes if needed
+    provider.addScope('profile');
+    provider.addScope('email');
+    
+    const result = await signInWithPopup(auth, provider);
+    
+    // This gives you a Google Access Token
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    
+    // The signed-in user info
+    const user = result.user;
+    
+    // Check if user exists in Firestore, if not create a profile
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    
+    if (!userDoc.exists()) {
+      // Create user document in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || '',
+        photoURL: user.photoURL || '',
+        role: 'learner', // Default role
+        createdAt: serverTimestamp(),
+        xp: 0,
+        sessionsCompleted: 0,
+        bio: '',
+        skills: []
+      });
+    }
+    
+    return user;
+  } catch (error) {
+    // Handle errors
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used
+    const email = error.customData?.email;
+    // The AuthCredential type that was used
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    
+    throw new Error(errorMessage);
   }
 };
 

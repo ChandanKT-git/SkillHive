@@ -26,8 +26,12 @@ const AuthForms = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const { signIn, signUp } = useAuth();
-  const { toast } = useToast();
+  const auth = useAuth() || {};
+  const signIn = auth.signIn || (() => {});
+  const signUp = auth.signUp || (() => {});
+  const signInWithGoogle = auth.signInWithGoogle || (() => {});
+  const toastHook = useToast() || {};
+  const toast = toastHook.toast || (() => {});
 
   const resetForm = () => {
     setEmail('');

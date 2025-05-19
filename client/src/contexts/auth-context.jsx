@@ -6,7 +6,8 @@ import {
   signOut as firebaseSignOut,
   sendPasswordResetEmail as firebaseSendPasswordReset,
   onAuthStateChanged,
-  getUserProfile
+  getUserProfile,
+  signInWithGoogle as firebaseSignInWithGoogle
 } from '../lib/firebase';
 
 const AuthContext = createContext();
@@ -100,6 +101,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signInWithGoogle = async () => {
+    setError(null);
+    try {
+      const firebaseUser = await firebaseSignInWithGoogle();
+      
+      // Get additional user data from Firestore
+      const userProfile = await getUserProfile(firebaseUser.uid);
+      setUser({
+        ...firebaseUser,
+        ...userProfile
+      });
+      
+      return firebaseUser;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
   const value = {
     user,
     loading,
@@ -107,7 +127,8 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signUp,
     signOut,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    signInWithGoogle
   };
 
   return (
