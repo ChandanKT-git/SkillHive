@@ -276,20 +276,37 @@ const AuthForms = () => {
                 variant="outline"
                 className="w-full flex items-center justify-center"
                 onClick={() => {
-                  setIsLoading(true);
-                  signInWithGoogle()
-                    .then(() => {
+                  try {
+                    setIsLoading(true);
+                    const signInResult = signInWithGoogle();
+                    
+                    // Check if signInWithGoogle returns a Promise
+                    if (signInResult && typeof signInResult.then === 'function') {
+                      signInResult
+                        .then(() => {
+                          toast({
+                            title: "Success!",
+                            description: "You have successfully signed in with Google",
+                          });
+                        })
+                        .catch((error) => {
+                          setError(error.message || "Google sign-in failed");
+                        })
+                        .finally(() => {
+                          setIsLoading(false);
+                        });
+                    } else {
+                      // If it's not returning a promise, handle accordingly
                       toast({
-                        title: "Success!",
-                        description: "You have successfully signed in with Google",
+                        title: "Info",
+                        description: "Google sign-in is not available in this environment",
                       });
-                    })
-                    .catch((error) => {
-                      setError(error.message);
-                    })
-                    .finally(() => {
                       setIsLoading(false);
-                    });
+                    }
+                  } catch (error) {
+                    setError("Failed to sign in with Google");
+                    setIsLoading(false);
+                  }
                 }}
                 disabled={isLoading}
               >
