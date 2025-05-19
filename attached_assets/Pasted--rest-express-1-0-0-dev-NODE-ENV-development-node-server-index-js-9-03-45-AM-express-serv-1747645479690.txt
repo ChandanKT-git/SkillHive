@@ -1,0 +1,22 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development node server/index.js
+
+9:03:45 AM [express] serving on port 5000
+[replit-cartographer] Error processing /home/runner/workspace/client/src/main.jsx: TypeError: traverse is not a function
+    at TransformPluginContext.transform (file:///home/runner/workspace/node_modules/@replit/vite-plugin-cartographer/dist/index.mjs:53:9)
+    at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+    at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+[replit-cartographer] Error processing /home/runner/workspace/client/src/App.jsx: TypeError: traverse is not a function
+    at TransformPluginContext.transform (file:///home/runner/workspace/node_modules/@replit/vite-plugin-cartographer/dist/index.mjs:53:9)
+    at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+    at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+[replit-cartographer] Error processing /home/runner/workspace/client/src/contexts/theme-context.jsx: TypeError: traverse is not a function
+    at TransformPluginContext.transform (file:///home/runner/workspace/node_modules/@replit/vite-plugin-cartographer/dist/index.mjs:53:9)
+    at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+    at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+[replit-cartographer] Error processing /home/runner/workspace/client/src/contexts/auth-context.jsx: TypeError: traverse is not a function
+    at TransformPluginContext.transform (file:///home/runner/workspace/node_modules/@replit/vite-plugin-cartographer/dist/index.mjs:53:9)
+    at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+    at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+9:04:16 AM [vite] Pre-transform error: Failed to resolve import "@/components/ui/tooltip" from "client/src/App.jsx". Does the file exist?
