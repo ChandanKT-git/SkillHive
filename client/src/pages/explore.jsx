@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  getSkillPosts, 
   toggleBookmark, 
   getUserBookmarks 
 } from '../lib/firebase';
+import { getSkillPosts, getSkillPostById } from '../lib/api';
 import { useAuth } from '../contexts/auth-context';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
