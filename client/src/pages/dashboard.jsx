@@ -31,8 +31,10 @@ import MentorCard from '@/components/dashboard/mentor-card';
 import { generateMeetingUrl } from '../lib/jitsi';
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const auth = useAuth() || {};
+  const user = auth.user;
+  const toastHook = useToast() || {};
+  const toast = toastHook.toast || (() => {});
   const [isLoading, setIsLoading] = useState(true);
   const [sessions, setSessions] = useState([]);
   const [userSkills, setUserSkills] = useState([]);

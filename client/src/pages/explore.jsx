@@ -24,8 +24,10 @@ import SessionModal from '@/components/modals/session-modal';
 import ProfileModal from '@/components/modals/profile-modal';
 
 const Explore = () => {
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const auth = useAuth() || {};
+  const user = auth.user;
+  const toastHook = useToast() || {};
+  const toast = toastHook.toast || (() => {});
   const [loading, setLoading] = useState(true);
   const [trendingSkills, setTrendingSkills] = useState([]);
   const [recentSkills, setRecentSkills] = useState([]);
