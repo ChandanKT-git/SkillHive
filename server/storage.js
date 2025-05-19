@@ -5,8 +5,8 @@ import { users, skillPosts } from "../shared/schema";
 export class MemStorage {
   constructor() {
     this.users = new Map();
-    this.skillPosts = new Map();
     this.currentUserId = 1;
+    this.skillPosts = new Map();
     this.currentSkillId = 1;
   }
 
