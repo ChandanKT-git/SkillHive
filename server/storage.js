@@ -1,8 +1,8 @@
 // Import schemas from shared schema
-import { users, skillPosts } from "../shared/schema";
+const { users, skillPosts } = require("../shared/schema");
 
 // Storage interface for database operations
-export class MemStorage {
+class MemStorage {
   constructor() {
     this.users = new Map();
     this.skillPosts = new Map();
@@ -142,4 +142,5 @@ export class MemStorage {
 }
 
 // Export a singleton instance
-export const storage = new MemStorage();
+const storage = new MemStorage();
+module.exports = { storage };
