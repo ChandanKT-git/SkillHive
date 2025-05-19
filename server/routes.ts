@@ -76,7 +76,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Skills endpoints would go here
+  // Skills endpoints
+  app.get("/api/skills", async (req, res, next) => {
+    try {
+      const skills = await storage.getSkillPosts();
+      res.json(skills);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.get("/api/skills/:id", async (req, res, next) => {
+    try {
+      const skillId = parseInt(req.params.id);
+      const skill = await storage.getSkillPostById(skillId);
+      
+      if (!skill) {
+        return res.status(404).json({ message: "Skill post not found" });
+      }
+      
+      res.json(skill);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.post("/api/skills", async (req, res, next) => {
+    try {
+      const skillPost = req.body;
+      const newSkill = await storage.createSkillPost(skillPost);
+      res.status(201).json(newSkill);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // Sessions endpoints would go here
   // Reviews endpoints would go here
   // Bookmarks endpoints would go here

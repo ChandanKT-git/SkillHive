@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const AuthForms = () => {
+const AuthForms = ({ onClose }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -78,9 +78,11 @@ const AuthForms = () => {
           title: "Account created successfully!",
           description: "Welcome to SkillSwap",
         });
+        if (onClose) onClose(); // Close the form after successful signup
       } else {
         // Sign in
         await signIn(email, password, rememberMe);
+        if (onClose) onClose(); // Close the form after successful login
       }
     } catch (error) {
       console.error('Authentication error:', error);
